@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1 {
+  font-size: 5vmax;
+}
+
+h3 {
+  font-size: 1.5vmax
+}
+
+li {
+  font-size: 2vmax;
+}
+
+input {
+  font-size: 2vmax;
+}
+
+.menu_button {
+  font-size: 6vmax;
+}
+
+.sub_menu {
+  font-size: 4vmax;
+}
+
+.game_button {
+  font-size: 10vmax;
+}
+
+.game_result {
+  font-size: 6vmax
+}
