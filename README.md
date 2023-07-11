@@ -1,6 +1,6 @@
 Paper Scissors Rocks App
 
-## Subject
+## Objectif
 
 The objective of this technical test is to assess your proficiency in React Next and Tailwind CSS. You will be required to create a paper-scissors-rocks app that allows players to enter their usernames and play the game. You will also need to implement a leaderboard that is persisted in local storage.
 
