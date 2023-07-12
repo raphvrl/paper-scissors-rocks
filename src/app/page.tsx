@@ -2,45 +2,15 @@
 
 import { useEffect, useState } from "react"
 import { redirect } from "next/navigation"
+import { 
+  createRenderLeaderboard, 
+  createNewLeaderboard, 
+  addInLeaderBoard
+} from "@/components/leaderboard"
 
 export default function Home() {
 
-  const renderLeaderboard = createLeaderboardList()
-
-  // create a list to render teh leaderboard
-  function createLeaderboardList() {
-    const strLeaderboard = localStorage.getItem("leaderboard")
-    if (strLeaderboard === null)
-      return
-
-    const leaderboard = JSON.parse(strLeaderboard)
-    let data = []
-    let tmp = []
-
-    for (let name in leaderboard) {
-      data.push({"name" : name, "value" : leaderboard[name]})
-    }
-
-    data.sort((second, first) => {return first.value - second.value})
-
-    for (let i = 0; i < data.length && i < 10; i++) {
-      tmp.push((i + 1) + ". " + data[i].name + " : " + data[i].value)
-    }
-
-    return tmp.map((item, index) => <li 
-    key={index} 
-    className="bolde border-4 px-2"
-    >{item}</li>)
-  }
-  
-  // localStorage.removeItem("leaderboard")
-
-  // create the leader if it don't exist
-  function createLeaderboard(name: string) {
-    const newScore = 0
-    const leaderboard = {[name] : newScore}
-    localStorage.setItem("leaderboard", JSON.stringify(leaderboard))
-  }
+  const renderLeaderboard = createRenderLeaderboard()
 
   // if the play is in the leaderboard and redirect to the game
   function playTheGame(data: FormData) {
@@ -52,12 +22,9 @@ export default function Home() {
 
     const strLeaderboard = localStorage.getItem("leaderboard")
     if (strLeaderboard === null) {
-      createLeaderboard(name)
-      
+      createNewLeaderboard(name)
     } else { 
-      let leaderboard = JSON.parse(strLeaderboard)
-      leaderboard[name] = 0
-      localStorage.setItem("leaderboard", JSON.stringify(leaderboard))
+      addInLeaderBoard(name, strLeaderboard)
     }
 
     localStorage.setItem("player", name)
