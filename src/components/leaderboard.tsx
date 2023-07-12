@@ -1,5 +1,5 @@
 
-// a player in the leaderboard
+// add a player in the leaderboard
 export function addInLeaderBoard(name : string, strLeaderboard : string) {
     let leaderboard = JSON.parse(strLeaderboard)
     leaderboard[name] = 0
