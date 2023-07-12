@@ -15,7 +15,4 @@ the leaderboard is not sorted
 
 clone the repository
 1. write in the terminal ```npm install next@latest react@latest react-dom@latest prisma```
-2. write in the terminal ```npx prisma migrate dev --name init```
-
-3. write in the terminal ```npm run dev``` to launch the app
-4. got to [`http://localhost:3000`](http://localhost:3000) in your browser to view the aplication
+2. got to [`http://localhost:3000`](http://localhost:3000) in your browser to view the aplication
