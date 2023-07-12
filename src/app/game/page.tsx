@@ -2,20 +2,45 @@
 
 
 import { Button } from "@/components/button"
+import { Plaster } from "next/font/google";
 import Link from "next/link"
 import { useState } from "react"
 
-export default function Game(params : {id : string}) {
+// define the emoji_choice type 
+interface emojiDict {
+    [key: string]: string;
+}
 
-    //init variable
+export default function Game() {
+
+    // init localbase variable
+    const playerName = localStorage.getItem("player")
+    const [strLeaderboard, setStrLeaderboard] = useState(localStorage.getItem("leaderboard"))
+
+    const [playerBestScore, setPlayerBestScore] = useState(0)
+
+    // init game variable
     const [playerScore, setPlayerScore] = useState(0)
     const [computerScore, setComputerScore] = useState(0)
     const [gameStart, setGameStart] = useState(false)
     const [gameEnd, setGameEnd] = useState(false)
-    const emoji_choice = {"Paper" : "✋", "Scissors" : "✌", "Rocks" : "✊", "null" : "..."}
+    const emoji_choice : emojiDict = {"Paper" : "✋", "Scissors" : "✌", "Rocks" : "✊", "null" : "..."}
     const [result, setResult] = useState("")
     const [playerChoice, setPlayerChoice] = useState("null")
     const [computerChoice, setComputerChoice] = useState("null")
+
+    function testBestScore() {
+        if (strLeaderboard === null || playerName === null)
+            return
+
+        let leaderboard = JSON.parse(strLeaderboard)
+        if (playerScore >= playerBestScore) {
+            setPlayerBestScore(playerScore)
+            leaderboard[playerName] = playerBestScore
+            setStrLeaderboard(JSON.stringify(leaderboard))
+            localStorage.setItem("leaderboard", strLeaderboard)
+        }
+    }
 
     // if player want reset the score
     function resetScore() {
@@ -25,6 +50,7 @@ export default function Game(params : {id : string}) {
 
     // restar the game
     function restarGame() {
+        testBestScore()
         setPlayerChoice("null")
         setComputerChoice("null")
         setGameStart(false)
@@ -78,7 +104,6 @@ export default function Game(params : {id : string}) {
                     playerLose()
                 break
         }
-        setGameEnd(true)
     }
 
     // run game
@@ -95,6 +120,7 @@ export default function Game(params : {id : string}) {
             const cpeChoice = getComputerChoice()
             setComputerChoice(cpeChoice)
             test_result(choice, cpeChoice)
+            setGameEnd(true)
         }, 1000);
     }
 
@@ -103,6 +129,9 @@ export default function Game(params : {id : string}) {
             <h1 className="text-center font-bold">
                 Your Scores : {playerScore} 
             </h1>
+            <h2 className="text-center font-bold">
+                Your BestScore : {playerBestScore} {playerName}
+            </h2>
             <div className="flex flex-col items-center justify-center min-h-screen"> 
             {
                 gameEnd ?
