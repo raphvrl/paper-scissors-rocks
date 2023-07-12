@@ -28,7 +28,7 @@ export default function Game() {
     const [playerChoice, setPlayerChoice] = useState("null")
     const [computerChoice, setComputerChoice] = useState("null")
 
-    // verif a the player score is better than his best score
+    // verif the player's score is better than his best score
     useEffect(() => {
         if (playerName === null || strLeaderboard === null)
             return
