@@ -4,7 +4,7 @@
 import { Button } from "@/components/button"
 import { Plaster } from "next/font/google";
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 // define the emoji_choice type 
 interface emojiDict {
@@ -16,7 +16,6 @@ export default function Game() {
     // init localbase variable
     const playerName = localStorage.getItem("player")
     const [strLeaderboard, setStrLeaderboard] = useState(localStorage.getItem("leaderboard"))
-
     const [playerBestScore, setPlayerBestScore] = useState(0)
 
     // init game variable
@@ -29,18 +28,18 @@ export default function Game() {
     const [playerChoice, setPlayerChoice] = useState("null")
     const [computerChoice, setComputerChoice] = useState("null")
 
-    function testBestScore() {
-        if (strLeaderboard === null || playerName === null)
+    useEffect(() => {
+        if (playerName === null || strLeaderboard === null)
             return
 
-        let leaderboard = JSON.parse(strLeaderboard)
+        const leaderboard = JSON.parse(strLeaderboard)
         if (playerScore >= playerBestScore) {
             setPlayerBestScore(playerScore)
             leaderboard[playerName] = playerBestScore
             setStrLeaderboard(JSON.stringify(leaderboard))
             localStorage.setItem("leaderboard", strLeaderboard)
         }
-    }
+    })
 
     // if player want reset the score
     function resetScore() {
@@ -50,7 +49,6 @@ export default function Game() {
 
     // restar the game
     function restarGame() {
-        testBestScore()
         setPlayerChoice("null")
         setComputerChoice("null")
         setGameStart(false)
@@ -130,7 +128,7 @@ export default function Game() {
                 Your Scores : {playerScore} 
             </h1>
             <h2 className="text-center font-bold">
-                Your BestScore : {playerBestScore} {playerName}
+                Your BestScore : {playerBestScore}
             </h2>
             <div className="flex flex-col items-center justify-center min-h-screen"> 
             {

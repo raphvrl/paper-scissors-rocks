@@ -8,8 +8,8 @@ The objective of this technical test is to assess your proficiency in React Next
 the paper scissors rock game work 
 the score systeme work 
 you must put your name to start a game 
-the best score is not saved in the leaderboard
-the leaderboard is not sorted
+the leaderboard work perfectly
+the leaderboard is sorted
 
 ## How to run it
 
