@@ -14,7 +14,7 @@ jobs:
         with:
           # Disable running of tests within install job
           runTests: false
-          build: npm run build
+          build: npm install next@latest react@latest react-dom@latest prisma
 
       - name: Save build folder
         uses: actions/upload-artifact@v3
